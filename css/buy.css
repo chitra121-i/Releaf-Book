@@ -1,0 +1,388 @@
+/* ================= BUY HERO ================= */
+
+.buy-hero {
+
+    padding: 65px 8%;
+
+    text-align: center;
+
+    background-color: #fff3e6;
+}
+
+
+.buy-hero h1 {
+
+    font-size: 45px;
+
+    color: #302820;
+
+    margin: 12px 0;
+}
+
+
+.buy-hero h1 span {
+
+    color: #d96b27;
+}
+
+
+.buy-hero > p:last-child {
+
+    color: #665c54;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-section {
+
+    padding: 30px 8%;
+
+    background-color: white;
+
+    border-bottom: 1px solid #eee;
+}
+
+
+.search-box {
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.search-box input {
+
+    flex: 1;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+
+.search-box select {
+
+    width: 180px;
+
+    padding: 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    background-color: white;
+
+    font-size: 14px;
+}
+
+
+.search-box button {
+
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #d96b27;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.search-box button:hover {
+
+    background-color: #bd591c;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= BOOK SECTION ================= */
+
+.books-section {
+
+    padding: 65px 8%;
+
+    background-color: #faf7f2;
+}
+
+
+.books-section > .small-heading {
+
+    text-align: center;
+}
+
+
+.books-container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+
+/* ================= BOOK CARD ================= */
+
+.book-card {
+
+    background-color: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+
+.book-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ================= BOOK IMAGE ================= */
+
+.book-image {
+
+    height: 270px;
+
+    padding: 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background-color: #fff3e6;
+}
+
+
+.book-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    transition: transform 0.25s;
+}
+
+
+.book-card:hover .book-image img {
+
+    transform: scale(1.05);
+}
+
+
+/* ================= BOOK DETAILS ================= */
+
+.book-details {
+
+    padding: 20px;
+}
+
+
+.book-category {
+
+    color: #d96b27;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+.book-details h3 {
+
+    margin: 8px 0 5px;
+
+    font-size: 21px;
+
+    color: #302820;
+}
+
+
+.author {
+
+    color: #777;
+
+    margin-top: 0;
+}
+
+
+.book-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 20px;
+}
+
+
+.book-bottom strong {
+
+    color: #d96b27;
+
+    font-size: 21px;
+}
+
+
+.book-bottom button {
+
+    padding: 9px 14px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background-color: #302820;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.book-bottom button:hover {
+
+    background-color: #d96b27;
+}
+
+
+/* ================= LOGIN MESSAGE ================= */
+
+.login-message {
+
+    padding: 55px 20px;
+
+    text-align: center;
+
+    background-color: white;
+}
+
+
+.login-message h2 {
+
+    color: #302820;
+
+    margin-bottom: 10px;
+}
+
+
+.login-message p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+.login-message a {
+
+    display: inline-block;
+
+    padding: 12px 24px;
+
+    background-color: #d96b27;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+
+.login-message a:hover {
+
+    background-color: #bd591c;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+    .books-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .search-box {
+
+        flex-direction: column;
+    }
+
+
+    .search-box select {
+
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .books-container {
+
+        grid-template-columns: 1fr;
+    }
+
+}
