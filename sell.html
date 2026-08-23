@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sell a Book | Releaf-Book</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/sell.css">
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            📚 Releaf-Book
+        </div>
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="buy.html">
+                Buy
+            </a>
+
+            <a href="sell.html" class="active-link">
+                Sell
+            </a>
+
+            <a href="login.html" class="login-btn">
+                Login
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= SELL SECTION ================= -->
+
+    <section class="sell-section">
+
+        <!-- LEFT SIDE -->
+
+        <div class="sell-intro">
+
+            <p class="small-heading">
+                SELL YOUR BOOK
+            </p>
+
+            <h1>
+                Give Your Book
+                <span>A New Home.</span>
+            </h1>
+
+            <p>
+                Have books sitting unused on your shelf?
+                Sell them on Releaf-Book and help them
+                find a new reader.
+            </p>
+
+
+            <div class="benefits">
+
+                <div class="benefit">
+                    📚 Give your books a second life
+                </div>
+
+                <div class="benefit">
+                    💰 Earn money from unused books
+                </div>
+
+                <div class="benefit">
+                    ♻️ Reduce book waste
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="sell-form">
+
+            <h2>
+                List Your Book
+            </h2>
+
+            <p>
+                Enter the details of your book.
+            </p>
+
+
+            <form>
+
+
+                <label for="book-title">
+                    Book Title
+                </label>
+
+                <input
+                    type="text"
+                    id="book-title"
+                    placeholder="Enter book title"
+                    required
+                >
+
+
+                <label for="author">
+                    Author
+                </label>
+
+                <input
+                    type="text"
+                    id="author"
+                    placeholder="Enter author name"
+                    required
+                >
+
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category">
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="fiction">
+                        Fiction
+                    </option>
+
+                    <option value="self-help">
+                        Self Help
+                    </option>
+
+                    <option value="programming">
+                        Programming
+                    </option>
+
+                    <option value="academic">
+                        Academic
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <label for="price">
+                    Selling Price
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    placeholder="Enter price in ₹"
+                    min="0"
+                    required
+                >
+
+
+                <label for="condition">
+                    Book Condition
+                </label>
+
+                <select id="condition">
+
+                    <option value="">
+                        Select condition
+                    </option>
+
+                    <option value="like-new">
+                        Like New
+                    </option>
+
+                    <option value="good">
+                        Good
+                    </option>
+
+                    <option value="acceptable">
+                        Acceptable
+                    </option>
+
+                </select>
+
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="4"
+                    placeholder="Describe the condition of your book..."
+                ></textarea>
+
+
+               <label for="book-image">
+    Book Image
+</label>
+
+<input
+    type="file"
+    id="book-image"
+    accept="image/*"
+    required
+>
+
+<img
+    id="image-preview"
+    src=""
+    alt="Book image preview"
+>
+
+
+                <button type="submit">
+                    List My Book
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="selling-steps">
+
+        <p class="small-heading">
+            SIMPLE PROCESS
+        </p>
+
+        <h2>
+            How Selling Works
+        </h2>
+
+
+        <div class="steps-container">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    List Your Book
+                </h3>
+
+                <p>
+                    Add the details and price of your book.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    Find a Buyer
+                </h3>
+
+                <p>
+                    Interested readers can discover your book.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    Complete the Sale
+                </h3>
+
+                <p>
+                    Connect with the buyer and complete the sale.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+<!-- ================= MY LISTINGS ================= -->
+
+<section class="my-listings">
+
+    <p class="small-heading">
+        YOUR BOOKS
+    </p>
+
+    <h2>
+        Your Listed Books
+    </h2>
+
+    <div id="listings-container">
+
+        <!-- JavaScript will add book cards here -->
+
+    </div>
+
+</section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <h3>
+            📚 Releaf-Book
+        </h3>
+
+        <p>
+            Find books. Give books a second life.
+        </p>
+
+        <p>
+            © 2026 Releaf-Book
+        </p>
+
+    </footer>
+
+<script src="js/sell.js"></script>
+</body>
+
+</html>
