@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Releaf-Book</title>
+    <title>Register | Releaf-Book</title>
 
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/auth.css">
@@ -31,8 +31,8 @@
                 Home
             </a>
 
-            <a href="register.html" class="register-btn">
-                Register
+            <a href="login.html" class="login-btn">
+                Login
             </a>
 
         </nav>
@@ -40,41 +40,59 @@
     </header>
 
 
-    <!-- ================= LOGIN SECTION ================= -->
+    <!-- ================= REGISTER SECTION ================= -->
 
     <main class="auth-page">
 
-        <div class="auth-card">
+        <div class="auth-card register-card">
 
             <div class="auth-icon">
-                📚
+                📖
             </div>
 
             <h1>
-                Welcome Back
+                Create Account
             </h1>
 
             <p class="auth-subtitle">
-                Login to continue to Releaf-Book
+                Join the Releaf-Book community
             </p>
 
 
-            <!-- LOGIN FORM -->
+            <!-- REGISTER FORM -->
 
-            <form id="login-form">
+            <form id="register-form">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="register-name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="register-name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required>
+
+                </div>
 
 
                 <!-- EMAIL -->
 
                 <div class="form-group">
 
-                    <label for="login-email">
+                    <label for="register-email">
                         Email Address
                     </label>
 
                     <input
                         type="email"
-                        id="login-email"
+                        id="register-email"
                         name="email"
                         placeholder="Enter your email"
                         required>
@@ -86,68 +104,86 @@
 
                 <div class="form-group">
 
-                    <label for="login-password">
+                    <label for="register-password">
                         Password
                     </label>
 
                     <input
                         type="password"
-                        id="login-password"
+                        id="register-password"
                         name="password"
-                        placeholder="Enter your password"
+                        placeholder="Create a password"
                         required>
 
                 </div>
 
 
-                <!-- REMEMBER ME -->
+                <!-- CONFIRM PASSWORD -->
 
-                <div class="form-options">
+                <div class="form-group">
 
-                    <label class="remember-me">
-
-                        <input
-                            type="checkbox"
-                            id="remember-me">
-
-                        Remember me
-
+                    <label for="confirm-password">
+                        Confirm Password
                     </label>
 
-                    <a href="#" class="forgot-password">
-                        Forgot Password?
-                    </a>
+                    <input
+                        type="password"
+                        id="confirm-password"
+                        name="confirm-password"
+                        placeholder="Confirm your password"
+                        required>
 
                 </div>
 
 
-                <!-- LOGIN BUTTON -->
+                <!-- TERMS -->
+
+                <div class="terms">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required>
+
+                        I agree to the
+                        <a href="#">
+                            Terms & Conditions
+                        </a>
+
+                    </label>
+
+                </div>
+
+
+                <!-- REGISTER BUTTON -->
 
                 <button
                     type="submit"
                     class="auth-btn">
 
-                    Login
+                    Create Account
 
                 </button>
 
 
                 <!-- MESSAGE -->
 
-                <p id="login-message" class="form-message"></p>
+                <p id="register-message" class="form-message"></p>
 
 
             </form>
 
 
-            <!-- REGISTER LINK -->
+            <!-- LOGIN LINK -->
 
             <p class="switch-auth">
 
-                Don't have an account?
+                Already have an account?
 
-                <a href="register.html">
-                    Create an account
+                <a href="login.html">
+                    Login here
                 </a>
 
             </p>
