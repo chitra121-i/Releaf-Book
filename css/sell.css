@@ -506,3 +506,469 @@
     }
 
 }
+
+/* ================= SELL DASHBOARD ================= */
+
+.sell-dashboard {
+
+    padding: 60px 8%;
+
+    background-color: #faf7f2;
+
+    min-height: 650px;
+}
+
+
+/* ================= DASHBOARD HEADER ================= */
+
+.dashboard-header {
+
+    max-width: 1100px;
+
+    margin: 0 auto 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+.dashboard-header h1 {
+
+    margin: 8px 0;
+
+    font-size: 38px;
+
+    color: #302820;
+}
+
+
+.dashboard-header p:last-child {
+
+    color: #777;
+
+    margin: 0;
+}
+
+
+/* ================= LIST BOOK BUTTON ================= */
+
+.list-book-btn {
+
+    padding: 13px 22px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background-color: #d96b27;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+.list-book-btn:hover {
+
+    background-color: #bd591c;
+
+}
+
+
+/* ================= LISTINGS ================= */
+
+#listings-container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+
+    text-align: left;
+}
+
+
+/* ================= SELL FORM CONTAINER ================= */
+
+.sell-form-container {
+
+    max-width: 700px;
+
+    margin: 40px auto 0;
+
+    padding: 35px;
+
+    background-color: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+    display: none;
+}
+
+
+/* ================= FORM HEADER ================= */
+
+.form-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 25px;
+}
+
+
+.form-header h2 {
+
+    margin: 8px 0;
+
+    color: #302820;
+
+    font-size: 28px;
+}
+
+
+.form-header p:last-child {
+
+    color: #777;
+
+    margin: 0;
+}
+
+
+.close-form-btn {
+
+    width: 35px;
+
+    height: 35px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background-color: #f5f5f5;
+
+    color: #555;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+
+.close-form-btn:hover {
+
+    background-color: #eee;
+
+}
+
+
+/* ================= INPUT HELP ================= */
+
+.input-help {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* ================= EXISTING FORM ================= */
+
+.sell-form-container label {
+
+    display: block;
+
+    margin-top: 17px;
+
+    margin-bottom: 7px;
+
+    font-weight: bold;
+
+    color: #3b3028;
+}
+
+
+.sell-form-container input,
+.sell-form-container select,
+.sell-form-container textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+}
+
+
+.sell-form-container input:focus,
+.sell-form-container select:focus,
+.sell-form-container textarea:focus {
+
+    outline: none;
+
+    border-color: #d96b27;
+
+}
+
+
+/* ================= IMAGE PREVIEW ================= */
+
+#image-preview {
+
+    display: none;
+
+    width: 180px;
+
+    height: 220px;
+
+    object-fit: contain;
+
+    margin-top: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    padding: 5px;
+
+    background-color: #fffaf5;
+}
+
+
+/* ================= SUBMIT BUTTON ================= */
+
+.submit-book-btn {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 25px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #d96b27;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.submit-book-btn:hover {
+
+    background-color: #bd591c;
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+    .dashboard-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    #listings-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 550px) {
+
+    .sell-dashboard {
+
+        padding: 40px 5%;
+
+    }
+
+
+    .dashboard-header h1 {
+
+        font-size: 30px;
+
+    }
+
+
+    #listings-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .sell-form-container {
+
+        padding: 25px;
+
+    }
+
+}
+
+/* ================= NO LISTINGS ================= */
+
+.no-listings {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 70px 20px;
+
+    background-color: white;
+
+    border-radius: 12px;
+
+    border: 1px solid #eee;
+}
+
+
+.no-listings h2 {
+
+    color: #302820;
+
+    margin-bottom: 10px;
+}
+
+
+.no-listings p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+/* ================= LISTING ACTIONS ================= */
+
+.listing-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+
+.edit-btn,
+.delete-btn {
+
+    flex: 1;
+
+    padding: 9px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+
+.edit-btn {
+
+    border: 1px solid #d96b27;
+
+    background-color: white;
+
+    color: #d96b27;
+}
+
+
+.delete-btn {
+
+    border: 1px solid #ddd;
+
+    background-color: white;
+
+    color: #777;
+}
+
+
+.edit-btn:hover {
+
+    background-color: #d96b27;
+
+    color: white;
+}
+
+
+.delete-btn:hover {
+
+    background-color: #eee;
+}
+
+
+/* ================= ISBN ================= */
+
+.listing-isbn {
+
+    font-size: 13px;
+
+    color: #777;
+
+    margin: 6px 0;
+}
+
+
+/* ================= STATUS ================= */
+
+.listing-status {
+
+    font-weight: bold;
+
+    margin-top: 12px;
+}
