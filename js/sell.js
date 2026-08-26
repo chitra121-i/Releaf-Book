@@ -200,9 +200,51 @@ function displayBooks() {
                 </div>
 
 
-                <p class="listing-status">
-                    ${statusHTML}
-                </p>
+               <div class="listing-status-box">
+
+    <label>
+        Status:
+    </label>
+
+    <select
+        class="status-select"
+        data-index="${index}"
+    >
+
+        <option
+            value="available"
+            ${status === "available" ? "selected" : ""}
+        >
+            🟢 Available
+        </option>
+
+
+        <option
+            value="negotiating"
+            ${status === "negotiating" ? "selected" : ""}
+        >
+            🟡 Negotiating
+        </option>
+
+
+        <option
+            value="deal"
+            ${status === "deal" ? "selected" : ""}
+        >
+            🟠 Deal Agreed
+        </option>
+
+
+        <option
+            value="sold"
+            ${status === "sold" ? "selected" : ""}
+        >
+            🔵 Sold
+        </option>
+
+    </select>
+
+</div>
 
 
                 <div class="listing-actions">
@@ -365,7 +407,66 @@ function displayBooks() {
         }
     );
 
+    // ================= STATUS CHANGE =================
+
+    const statusSelects =
+        document.querySelectorAll(
+            ".status-select"
+        );
+
+
+    statusSelects.forEach(function(select) {
+
+        select.addEventListener(
+            "change",
+            function() {
+
+                const index =
+                    Number(
+                        select.dataset.index
+                    );
+
+
+                const books =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "releafBooks"
+                        )
+                    ) || [];
+
+
+                if (!books[index]) {
+
+                    return;
+
+                }
+
+
+                // Update status
+
+                books[index].status =
+                    select.value;
+
+
+                // Save updated books
+
+                localStorage.setItem(
+                    "releafBooks",
+                    JSON.stringify(books)
+                );
+
+
+                // Refresh listings
+
+                displayBooks();
+
+            }
+        );
+
+    });
+
 }
+
 
 
 // ================= PHOTO GALLERY =================
