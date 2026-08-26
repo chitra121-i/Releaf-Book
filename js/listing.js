@@ -4,7 +4,7 @@ const sellForm =
     document.getElementById("sell-form");
 
 
-// ================= GET FORM FIELDS =================
+// ================= FORM FIELDS =================
 
 const isbnInput =
     document.getElementById("isbn");
@@ -27,63 +27,267 @@ const conditionInput =
 const descriptionInput =
     document.getElementById("description");
 
-const imageInput =
-    document.getElementById("book-image");
 
-const imagePreview =
-    document.getElementById("image-preview");
+// ================= PHOTO INPUTS =================
+
+const coverInput =
+    document.getElementById("cover-image");
+
+const additionalInput =
+    document.getElementById("additional-images");
+
+const coverPreview =
+    document.getElementById("cover-preview");
+
+const additionalPreview =
+    document.getElementById("additional-preview");
 
 
-// ================= IMAGE PREVIEW =================
+// ================= EDIT MODE =================
 
-imageInput.addEventListener(
+const editingBookIndex =
+    localStorage.getItem("editingBookIndex");
+
+let editingBook = null;
+
+
+if (editingBookIndex !== null) {
+
+    const books =
+        JSON.parse(
+            localStorage.getItem("releafBooks")
+        ) || [];
+
+
+    editingBook =
+        books[Number(editingBookIndex)];
+
+}
+
+
+// ================= SUBMIT BUTTON =================
+
+const submitBookButton =
+    document.getElementById(
+        "submit-book-btn"
+    );
+
+
+if (editingBook && submitBookButton) {
+
+    submitBookButton.textContent =
+        "Save Changes";
+
+}
+
+
+// ================= FILL EDIT FORM =================
+
+if (editingBook) {
+
+    isbnInput.value =
+        editingBook.isbn || "";
+
+    titleInput.value =
+        editingBook.title || "";
+
+    authorInput.value =
+        editingBook.author || "";
+
+    categoryInput.value =
+        editingBook.category || "";
+
+    priceInput.value =
+        editingBook.price || "";
+
+    conditionInput.value =
+        editingBook.condition || "";
+
+    descriptionInput.value =
+        editingBook.description || "";
+
+
+    // Get existing photos
+
+    let photos = [];
+
+
+    if (
+        editingBook.photos &&
+        editingBook.photos.length > 0
+    ) {
+
+        photos =
+            editingBook.photos;
+
+    }
+
+    else if (editingBook.image) {
+
+        photos = [
+            editingBook.image
+        ];
+
+    }
+
+
+    // Show existing cover
+
+    if (photos.length > 0) {
+
+        coverPreview.innerHTML = `
+
+            <div class="photo-preview">
+
+                <img
+                    src="${photos[0]}"
+                    alt="Current book cover"
+                >
+
+                <div class="cover-label">
+                    Current Cover ⭐
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // Show existing additional photo
+
+    if (photos.length > 1) {
+
+        additionalPreview.innerHTML = `
+
+            <div class="photo-preview">
+
+                <img
+                    src="${photos[1]}"
+                    alt="Current additional photo"
+                >
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+// ================= COVER PREVIEW =================
+
+coverInput.addEventListener(
     "change",
     function() {
 
         const image =
-            imageInput.files[0];
+            coverInput.files[0];
+
+
+        coverPreview.innerHTML = "";
 
 
         if (!image) {
 
-            imagePreview.src = "";
-
-            imagePreview.style.display =
-                "none";
-
             return;
+
         }
 
 
-        // Check image type
-
-        if (!image.type.startsWith("image/")) {
+        if (
+            !image.type.startsWith("image/")
+        ) {
 
             alert(
                 "Please select an image file."
             );
 
-            imageInput.value = "";
-
-            imagePreview.src = "";
-
-            imagePreview.style.display =
-                "none";
+            coverInput.value = "";
 
             return;
+
         }
 
-
-        // Create preview
 
         const imageURL =
             URL.createObjectURL(image);
 
-        imagePreview.src =
-            imageURL;
 
-        imagePreview.style.display =
-            "block";
+        coverPreview.innerHTML = `
+
+            <div class="photo-preview">
+
+                <img
+                    src="${imageURL}"
+                    alt="Book cover"
+                >
+
+                <div class="cover-label">
+                    Cover ⭐
+                </div>
+
+            </div>
+
+        `;
+
+    }
+);
+
+
+// ================= ADDITIONAL PHOTO PREVIEW =================
+
+additionalInput.addEventListener(
+    "change",
+    function() {
+
+        const image =
+            additionalInput.files[0];
+
+
+        additionalPreview.innerHTML = "";
+
+
+        if (!image) {
+
+            return;
+
+        }
+
+
+        if (
+            !image.type.startsWith("image/")
+        ) {
+
+            alert(
+                "Please select an image file."
+            );
+
+            additionalInput.value = "";
+
+            return;
+
+        }
+
+
+        const imageURL =
+            URL.createObjectURL(image);
+
+
+        additionalPreview.innerHTML = `
+
+            <div class="photo-preview">
+
+                <img
+                    src="${imageURL}"
+                    alt="Additional book photo"
+                >
+
+            </div>
+
+        `;
 
     }
 );
@@ -121,8 +325,11 @@ sellForm.addEventListener(
         const description =
             descriptionInput.value.trim();
 
-        const image =
-            imageInput.files[0];
+        const coverImage =
+            coverInput.files[0];
+
+        const additionalImage =
+            additionalInput.files[0];
 
 
         // ================= VALIDATION =================
@@ -136,6 +343,7 @@ sellForm.addEventListener(
             isbnInput.focus();
 
             return;
+
         }
 
 
@@ -148,6 +356,7 @@ sellForm.addEventListener(
             titleInput.focus();
 
             return;
+
         }
 
 
@@ -160,6 +369,7 @@ sellForm.addEventListener(
             authorInput.focus();
 
             return;
+
         }
 
 
@@ -172,6 +382,7 @@ sellForm.addEventListener(
             categoryInput.focus();
 
             return;
+
         }
 
 
@@ -187,6 +398,7 @@ sellForm.addEventListener(
             priceInput.focus();
 
             return;
+
         }
 
 
@@ -199,112 +411,260 @@ sellForm.addEventListener(
             conditionInput.focus();
 
             return;
+
         }
 
 
         if (description === "") {
 
             alert(
-                "Please enter a description of the book."
+                "Please enter a description."
             );
 
             descriptionInput.focus();
 
             return;
+
         }
 
 
-        if (!image) {
+        // Cover required only for new listing
+
+        if (
+            !coverImage &&
+            !editingBook
+        ) {
 
             alert(
                 "Please upload a book cover."
             );
 
-            imageInput.focus();
+            coverInput.focus();
 
             return;
+
         }
 
 
-        // ================= READ IMAGE =================
+        // ================= READ PHOTOS =================
 
-        const reader =
-            new FileReader();
+        if (coverImage) {
 
-
-        reader.onload =
-            function() {
-
-                const imageData =
-                    reader.result;
+            const coverReader =
+                new FileReader();
 
 
-                // ================= CREATE BOOK =================
+            coverReader.onload =
+                function() {
 
-                const newBook = {
+                    const coverData =
+                        coverReader.result;
 
-                    isbn: isbn,
 
-                    title: title,
+                    if (additionalImage) {
 
-                    author: author,
+                        const additionalReader =
+                            new FileReader();
 
-                    category: category,
 
-                    price: price,
+                        additionalReader.onload =
+                            function() {
 
-                    condition: condition,
+                                saveBook(
+                                    coverData,
+                                    additionalReader.result
+                                );
 
-                    description: description,
+                            };
 
-                    image: imageData,
 
-                    status: "available"
+                        additionalReader.readAsDataURL(
+                            additionalImage
+                        );
+
+                    }
+
+                    else {
+
+                        saveBook(
+                            coverData,
+                            null
+                        );
+
+                    }
 
                 };
 
 
-                // ================= GET EXISTING BOOKS =================
+            coverReader.readAsDataURL(
+                coverImage
+            );
 
-                const books =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "releafBooks"
-                        )
-                    ) || [];
+        }
 
+        else {
 
-                // ================= ADD BOOK =================
+            // Editing without
+            // changing the cover
 
-                books.push(newBook);
+            saveBook(
+                null,
+                null
+            );
 
-
-                // ================= SAVE =================
-
-                localStorage.setItem(
-                    "releafBooks",
-                    JSON.stringify(books)
-                );
-
-
-                // ================= SUCCESS =================
-
-                alert(
-                    "Book listed successfully!"
-                );
-
-
-                // ================= RETURN TO SELL PAGE =================
-
-                window.location.href =
-                    "sell.html";
-
-            };
-
-
-        // Convert image to Base64
-
-        reader.readAsDataURL(image);
+        }
 
     }
 );
+
+
+// ================= SAVE BOOK =================
+
+function saveBook(
+    coverData,
+    additionalData
+) {
+
+    const books =
+        JSON.parse(
+            localStorage.getItem("releafBooks")
+        ) || [];
+
+
+    let photos = [];
+
+
+    // ================= EXISTING PHOTOS =================
+
+    if (editingBook) {
+
+        if (
+            editingBook.photos &&
+            editingBook.photos.length > 0
+        ) {
+
+            photos =
+                [...editingBook.photos];
+
+        }
+
+        else if (editingBook.image) {
+
+            photos = [
+                editingBook.image
+            ];
+
+        }
+
+    }
+
+
+    // ================= NEW COVER =================
+
+    if (coverData) {
+
+        photos[0] =
+            coverData;
+
+    }
+
+
+    // ================= NEW ADDITIONAL PHOTO =================
+
+    if (additionalData) {
+
+        photos[1] =
+            additionalData;
+
+    }
+
+
+    // ================= BOOK OBJECT =================
+
+    const newBook = {
+
+        isbn:
+            isbnInput.value.trim(),
+
+        title:
+            titleInput.value.trim(),
+
+        author:
+            authorInput.value.trim(),
+
+        category:
+            categoryInput.value,
+
+        price:
+            priceInput.value,
+
+        condition:
+            conditionInput.value,
+
+        description:
+            descriptionInput.value.trim(),
+
+        photos:
+            photos,
+
+        // Keep cover in old field
+        // for compatibility
+
+        image:
+            photos[0],
+
+        status:
+            editingBook
+                ? editingBook.status || "available"
+                : "available"
+
+    };
+
+
+    // ================= UPDATE OR ADD =================
+
+    if (editingBookIndex !== null) {
+
+        books[
+            Number(editingBookIndex)
+        ] = newBook;
+
+
+        localStorage.removeItem(
+            "editingBookIndex"
+        );
+
+    }
+
+    else {
+
+        books.push(
+            newBook
+        );
+
+    }
+
+
+    // ================= SAVE =================
+
+    localStorage.setItem(
+        "releafBooks",
+        JSON.stringify(books)
+    );
+
+
+    // ================= SUCCESS =================
+
+    alert(
+        editingBook
+            ? "Book updated successfully!"
+            : "Book listed successfully!"
+    );
+
+
+    // ================= RETURN =================
+
+    window.location.href =
+        "sell.html";
+
+}

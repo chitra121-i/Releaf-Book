@@ -226,23 +226,67 @@
 
             <!-- ================= BOOK COVER ================= -->
 
-            <label for="book-image">
-                Book Cover
-            </label>
+            <!-- ================= BOOK PHOTOS ================= -->
 
-            <input
-                type="file"
-                id="book-image"
-                accept="image/*"
-            >
+<label>
+    Book Photos
+</label>
+
+<p class="photo-help">
+    The cover photo is required. You can add one additional
+    photo to show an inside page or back cover.
+</p>
 
 
-            <img
-                id="image-preview"
-                src=""
-                alt="Book cover preview"
-            >
+<!-- COVER PHOTO -->
 
+<div class="photo-upload-section">
+
+    <h3>
+        Cover Photo ⭐
+    </h3>
+
+    <input
+        type="file"
+        id="cover-image"
+        accept="image/*"
+    >
+
+    <div
+        id="cover-preview"
+        class="photo-preview-container"
+    >
+    </div>
+
+</div>
+
+
+<!-- ADDITIONAL PHOTOS -->
+
+<div class="photo-upload-section">
+
+    <h3>
+        Additional Photos
+    </h3>
+
+    <input
+    type="file"
+    id="additional-images"
+    accept="image/*"
+>
+
+   <p class="photo-help">
+    Optional: Add one inside page or back-cover photo.
+</p>
+
+
+    <div
+        id="additional-preview"
+        class="photo-preview-container"
+    >
+    </div>
+
+</div>
 
 
             <!-- ================= BUTTONS ================= -->
@@ -258,11 +302,12 @@
 
 
                 <button
-                    type="submit"
-                    class="submit-book-btn"
-                >
-                    List My Book
-                </button>
+    type="submit"
+    class="submit-book-btn"
+    id="submit-book-btn"
+>
+    List My Book
+</button>
 
             </div>
 
