@@ -1,109 +1,228 @@
-// ================= GET FORM =================
-
-const sellForm = document.querySelector(".sell-form form");
-
-
-// ================= GET FORM FIELDS =================
-
-const titleInput = document.getElementById("book-title");
-const authorInput = document.getElementById("author");
-const categoryInput = document.getElementById("category");
-const priceInput = document.getElementById("price");
-const conditionInput = document.getElementById("condition");
-const descriptionInput = document.getElementById("description");
-const imageInput = document.getElementById("book-image");
-
-const imagePreview = document.getElementById("image-preview");
+// ================= GET LISTINGS =================
 
 const listingsContainer =
     document.getElementById("listings-container");
-
-
-// ================= IMAGE PREVIEW =================
-
-imageInput.addEventListener("change", function() {
-
-    const image = imageInput.files[0];
-
-    if (image) {
-
-        if (!image.type.startsWith("image/")) {
-
-            alert("Please select an image file.");
-
-            imageInput.value = "";
-
-            imagePreview.style.display = "none";
-
-            return;
-        }
-
-        const imageURL = URL.createObjectURL(image);
-
-        imagePreview.src = imageURL;
-
-        imagePreview.style.display = "block";
-    }
-
-});
 
 
 // ================= DISPLAY BOOKS =================
 
 function displayBooks() {
 
-    // Get saved books
     const books =
-        JSON.parse(localStorage.getItem("releafBooks")) || [];
+        JSON.parse(
+            localStorage.getItem("releafBooks")
+        ) || [];
 
 
-    // Clear current listings
     listingsContainer.innerHTML = "";
 
 
-    // Display every saved book
-    books.forEach(function(book) {
+    // ================= NO LISTINGS =================
+
+    if (books.length === 0) {
+
+        listingsContainer.innerHTML = `
+
+            <div class="no-listings">
+
+                <h2>
+                    No Books Listed Yet
+                </h2>
+
+                <p>
+                    Start selling your unused books
+                    and give them a new reader.
+                </p>
+
+                <a
+                    href="listing.html"
+                    class="list-book-btn"
+                >
+                    + List Your First Book
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    // ================= CREATE LISTING CARDS =================
+
+    books.forEach(function(book, index) {
 
         const bookCard =
             document.createElement("div");
 
-        bookCard.classList.add("listing-card");
+        bookCard.classList.add(
+            "listing-card"
+        );
 
+
+        // Support both old and new books
+
+        let photos = [];
+
+        if (
+            book.photos &&
+            book.photos.length > 0
+        ) {
+
+            photos = book.photos;
+
+        }
+
+        else if (book.image) {
+
+            photos = [
+                book.image
+            ];
+
+        }
+
+
+        const coverImage =
+            photos[0];
+
+
+        const photoCount =
+            photos.length;
+
+
+        // ================= STATUS =================
+
+        const status =
+            book.status || "available";
+
+
+        let statusHTML =
+            "🟢 Available";
+
+
+        if (status === "sold") {
+
+            statusHTML =
+                "🔵 Sold";
+
+        }
+
+        else if (
+            status === "negotiating"
+        ) {
+
+            statusHTML =
+                "🟡 Negotiating";
+
+        }
+
+        else if (
+            status === "deal"
+        ) {
+
+            statusHTML =
+                "🟠 Deal Agreed";
+
+        }
+
+
+        // ================= CARD =================
 
         bookCard.innerHTML = `
 
-            <img
-                src="${book.image}"
-                alt="${book.title}"
+            <div
+                class="listing-cover"
+                data-book-index="${index}"
             >
+
+                <img
+                    src="${coverImage}"
+                    alt="${book.title}"
+                >
+
+
+                ${
+                    photoCount > 1
+
+                    ? `
+                        <span class="photo-count">
+                            📷 ${photoCount} Photos
+                        </span>
+                      `
+
+                    : ""
+                }
+
+            </div>
+
 
             <div class="listing-details">
 
+
                 <p class="listing-category">
-                    ${book.category}
+                    ${book.category || ""}
                 </p>
+
 
                 <h3>
-                    ${book.title}
+                    ${book.title || ""}
                 </h3>
 
-                <p class="listing-author">
-                    ${book.author}
+
+                <p class="listing-isbn">
+                    ISBN:
+                    ${book.isbn || "Not available"}
                 </p>
 
-                <p>
-                    ${book.description}
+
+                <p class="listing-author">
+                    ${book.author || ""}
                 </p>
+
+
+                <p class="listing-description">
+                    ${book.description || ""}
+                </p>
+
 
                 <div class="listing-bottom">
 
                     <span class="listing-price">
-                        ₹${book.price}
+                        ₹${book.price || ""}
                     </span>
 
+
                     <span class="listing-condition">
-                        ${book.condition}
+                        ${book.condition || ""}
                     </span>
+
+                </div>
+
+
+                <p class="listing-status">
+                    ${statusHTML}
+                </p>
+
+
+                <div class="listing-actions">
+
+                    <button
+                        type="button"
+                        class="edit-btn"
+                        data-index="${index}"
+                    >
+                        Edit
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="delete-btn"
+                        data-index="${index}"
+                    >
+                        Delete
+                    </button>
 
                 </div>
 
@@ -112,204 +231,344 @@ function displayBooks() {
         `;
 
 
-        listingsContainer.appendChild(bookCard);
+        listingsContainer.appendChild(
+            bookCard
+        );
 
     });
+
+
+    // ================= DELETE =================
+
+    const deleteButtons =
+        document.querySelectorAll(
+            ".delete-btn"
+        );
+
+
+    deleteButtons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const index =
+                        Number(
+                            button.dataset.index
+                        );
+
+
+                    const books =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "releafBooks"
+                            )
+                        ) || [];
+
+
+                    const book =
+                        books[index];
+
+
+                    if (!book) {
+
+                        return;
+
+                    }
+
+
+                    // Only available books
+                    // can be deleted
+
+                    if (
+                        book.status &&
+                        book.status !== "available"
+                    ) {
+
+                        alert(
+                            "This book cannot be deleted while it is being sold."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const confirmDelete =
+                        confirm(
+                            `Are you sure you want to delete "${book.title}"?`
+                        );
+
+
+                    if (!confirmDelete) {
+
+                        return;
+
+                    }
+
+
+                    books.splice(
+                        index,
+                        1
+                    );
+
+
+                    localStorage.setItem(
+                        "releafBooks",
+                        JSON.stringify(books)
+                    );
+
+
+                    displayBooks();
+
+                }
+            );
+
+        }
+    );
+
+
+    // ================= EDIT =================
+
+    const editButtons =
+        document.querySelectorAll(
+            ".edit-btn"
+        );
+
+
+    editButtons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const index =
+                        Number(
+                            button.dataset.index
+                        );
+
+
+                    localStorage.setItem(
+                        "editingBookIndex",
+                        index
+                    );
+
+
+                    window.location.href =
+                        "listing.html";
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
-// ================= FORM SUBMIT =================
+// ================= PHOTO GALLERY =================
 
-sellForm.addEventListener("submit", function(event) {
+const photoGallery =
+    document.getElementById(
+        "photo-gallery"
+    );
 
-    event.preventDefault();
 
+const galleryMainImage =
+    document.getElementById(
+        "gallery-main-image"
+    );
 
-    // Get values
 
-    const title =
-        titleInput.value.trim();
+const galleryThumbnails =
+    document.getElementById(
+        "gallery-thumbnails"
+    );
 
-    const author =
-        authorInput.value.trim();
 
-    const category =
-        categoryInput.value;
+const closeGallery =
+    document.getElementById(
+        "close-gallery"
+    );
 
-    const price =
-        priceInput.value;
 
-    const condition =
-        conditionInput.value;
+// Only run gallery code if gallery exists
 
-    const description =
-        descriptionInput.value.trim();
+if (
+    photoGallery &&
+    galleryMainImage &&
+    galleryThumbnails &&
+    closeGallery
+) {
 
-    const image =
-        imageInput.files[0];
 
+    // ================= OPEN GALLERY =================
 
-    // ================= VALIDATION =================
+    document.addEventListener(
+        "click",
+        function(event) {
 
-    if (title === "") {
+            const cover =
+                event.target.closest(
+                    ".listing-cover"
+                );
 
-        alert("Please enter the book title.");
 
-        titleInput.focus();
+            if (!cover) {
 
-        return;
-    }
+                return;
 
+            }
 
-    if (author === "") {
 
-        alert("Please enter the author's name.");
+            const bookIndex =
+                Number(
+                    cover.dataset.bookIndex
+                );
 
-        authorInput.focus();
 
-        return;
-    }
+            const books =
+                JSON.parse(
+                    localStorage.getItem(
+                        "releafBooks"
+                    )
+                ) || [];
 
 
-    if (category === "") {
+            const book =
+                books[bookIndex];
 
-        alert("Please select a category.");
 
-        categoryInput.focus();
+            if (!book) {
 
-        return;
-    }
+                return;
 
+            }
 
-    if (price === "" || Number(price) <= 0) {
 
-        alert("Please enter a valid selling price.");
+            let photos = [];
 
-        priceInput.focus();
 
-        return;
-    }
+            if (
+                book.photos &&
+                book.photos.length > 0
+            ) {
 
+                photos =
+                    book.photos;
 
-    if (condition === "") {
+            }
 
-        alert("Please select the book condition.");
+            else if (book.image) {
 
-        conditionInput.focus();
+                photos = [
+                    book.image
+                ];
 
-        return;
-    }
+            }
 
 
-    if (description === "") {
+            if (photos.length === 0) {
 
-        alert("Please enter a description of the book.");
+                return;
 
-        descriptionInput.focus();
+            }
 
-        return;
-    }
 
+            // First image
 
-    if (!image) {
+            galleryMainImage.src =
+                photos[0];
 
-        alert("Please upload an image of the book.");
 
-        imageInput.focus();
+            // Clear thumbnails
 
-        return;
-    }
+            galleryThumbnails.innerHTML =
+                "";
 
 
-    // ================= READ IMAGE =================
+            // Create thumbnails
 
-    const reader = new FileReader();
+            photos.forEach(
+                function(photo) {
 
+                    const thumbnail =
+                        document.createElement(
+                            "img"
+                        );
 
-    reader.onload = function() {
 
-        const imageData =
-            reader.result;
+                    thumbnail.src =
+                        photo;
 
 
-        // Create book object
+                    thumbnail.classList.add(
+                        "gallery-thumbnail"
+                    );
 
-        const newBook = {
 
-            title: title,
+                    thumbnail.addEventListener(
+                        "click",
+                        function() {
 
-            author: author,
+                            galleryMainImage.src =
+                                photo;
 
-            category: category,
+                        }
+                    );
 
-            price: price,
 
-            condition: condition,
+                    galleryThumbnails.appendChild(
+                        thumbnail
+                    );
 
-            description: description,
+                }
+            );
 
-            image: imageData
 
-        };
+            photoGallery.style.display =
+                "flex";
 
+        }
+    );
 
-        // Get existing books
 
-        const books =
-            JSON.parse(localStorage.getItem("releafBooks")) || [];
+    // ================= CLOSE GALLERY =================
 
+    closeGallery.addEventListener(
+        "click",
+        function() {
 
-        // Add new book
+            photoGallery.style.display =
+                "none";
 
-        books.push(newBook);
+        }
+    );
 
 
-        // Save books
+    // Close when clicking background
 
-        localStorage.setItem(
-            "releafBooks",
-            JSON.stringify(books)
-        );
+    photoGallery.addEventListener(
+        "click",
+        function(event) {
 
+            if (
+                event.target === photoGallery
+            ) {
 
-        // Display books
+                photoGallery.style.display =
+                    "none";
 
-        displayBooks();
+            }
 
+        }
+    );
 
-        // Success message
+}
 
-        alert(
-            "Book listed successfully!\n\n" +
 
-            "Title: " + title + "\n" +
-
-            "Author: " + author + "\n" +
-
-            "Price: ₹" + price
-        );
-
-
-        // Reset form
-
-        sellForm.reset();
-
-        imagePreview.src = "";
-
-        imagePreview.style.display = "none";
-
-    };
-
-
-    // Convert image to storable data
-    reader.readAsDataURL(image);
-
-});
-
-
-// ================= LOAD SAVED BOOKS =================
-
-// Run when page opens
+// ================= LOAD LISTINGS =================
 
 displayBooks();
